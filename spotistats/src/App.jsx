@@ -1,13 +1,14 @@
 
+
 import auth from "./userAuth"
 
 function App() {
-   
-  
+   auth()
+    
 
   return (
     <div>
-      <button onClick={()=> auth()}>Connect your spotify</button>
+      <div id="addbutton"></div>
       <h1>Display your spotifile profile data</h1>
 
       <section id="profile">

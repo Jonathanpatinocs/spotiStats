@@ -90,12 +90,18 @@ async function auth() {
   const code = params.get("code");
 
   if (!code) {
-    redirecttoAuthCodeFlow(clientId)
-    const accessToken = await getAccessToken(clientId, code)
-    const profile = await fetchProfile(accessToken)
-    console.log(profile);
+    const buttonDiv = document.getElementById('addbutton')
+    const button = document.createElement('button')
+    button.innerText = 'Connect your spotify'
+    button.addEventListener('click',()=> {
+      redirecttoAuthCodeFlow(clientId)
+      auth()
+    })
+    if(!buttonDiv?.firstChild) {
+      buttonDiv?.append(button)
+    } 
     
-    populateUI(profile)
+    
   } else {
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
