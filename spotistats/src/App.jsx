@@ -2,10 +2,14 @@ import './styles.scss'
 import auth from "./APICalls"
 
 
+
+
+
 function App() {
+  
    auth()
    
-    
+   
 
   return (
     <div>
@@ -23,7 +27,11 @@ function App() {
           <li>Profile Image: <span id="imgUrl"></span></li>
         </ul>
       </section>
-      <div id="topTracks"></div>
+      <div id='topTracksContainer'>
+        <div id="topTracks"></div>
+      </div>
+      
+      
       
     </div>
   )

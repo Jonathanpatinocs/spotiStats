@@ -1,6 +1,7 @@
-import React from "react";
+import React, { createElement } from "react";
 import TrackCard from "./components/trackCard";
 import TrackCardContainer from "./components/trackCardContainer";
+import ReactDOM from "react-dom";
 
 
 // --------------- Verify that request is authentic -------------------- // 
@@ -91,8 +92,10 @@ function showTopTracks(topTracks: any) {
     }
     toptracksArray.push(track)
   }
+  
   return (toptracksArray)
 }
+
 function populateUI(profile: any) {
   document.getElementById("displayName")!.innerText = profile.display_name;
   if (profile.images[0]) {
@@ -108,19 +111,33 @@ function populateUI(profile: any) {
   document.getElementById("url")!.setAttribute("href", profile.href);
   document.getElementById("imgUrl")!.innerText = profile.images[0]?.url ?? '(no profile image)';
 }
-
-
-async function auth() {
+function populateTopTracks(topTracks: any) {
+  const div = document.getElementById('topTracks')
+  for (let i = 0; i < topTracks.length; i++) {
+    let trackDiv = document.createElement('div')
+    trackDiv.classList.add('trackCard')
+    let trackArtwork = document.createElement('img')
+    let trackTitle = document.createElement('h1')
+    let trackArtist = document.createElement('p')
+    trackTitle.innerText = topTracks[i].title
+    trackArtist.innerText = topTracks[i].artist
+    trackArtwork.src = topTracks[i].artwork
+    trackDiv.append(trackArtwork,trackTitle, trackArtist)
+    div?.append(trackDiv)
+  }
+}
 
   
-  const clientId = "ff095abf4d4a4fc2b49583d127c624ad"
-  const params = new URLSearchParams(window.location.search)
-  const code = params.get("code");
 
+  async function auth() {
+    const clientId = "ff095abf4d4a4fc2b49583d127c624ad"
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get("code");
   if (!code) {
       redirecttoAuthCodeFlow(clientId)
     }
      else {
+
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
     const topTracks = await fetchTopTracks(accessToken)
@@ -128,11 +145,13 @@ async function auth() {
     console.log(topTracks)
     const array = showTopTracks(topTracks)
     populateUI(profile)
+    populateTopTracks(array)
     console.log(array)
     
+     
   }
 }
 
 export default auth
-export { fetchTopTracks, getAccessToken }
+
 
