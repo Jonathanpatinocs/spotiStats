@@ -1,4 +1,6 @@
-
+import React from "react";
+import TrackCard from "./components/trackCard";
+import TrackCardContainer from "./components/trackCardContainer";
 
 
 // --------------- Verify that request is authentic -------------------- // 
@@ -77,12 +79,19 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
     return await result.json()
 }
 function showTopTracks(topTracks: any) {
-  const div = document.getElementById('topTracks')
+  const toptracksArray: any[] = []
+  
+  const tracksContainer = document.getElementById('topTracks')
+  const tracks = document.createElement('div')
   for( let i = 0; i < topTracks.items.length; i++) {
-    let trackdiv = document.createElement('div')
-    trackdiv.innerText = `${topTracks.items[i].name} ${topTracks.items[i].artists[0].name}`
-    div?.append(trackdiv)
+    let track = {
+      title: topTracks.items[i].name,
+      artist: topTracks.items[i].artists[0].name,
+      artwork: topTracks.items[i].album.images[0].url
+    }
+    toptracksArray.push(track)
   }
+  return (toptracksArray)
 }
 function populateUI(profile: any) {
   document.getElementById("displayName")!.innerText = profile.display_name;
@@ -117,10 +126,13 @@ async function auth() {
     const topTracks = await fetchTopTracks(accessToken)
     console.log(profile);
     console.log(topTracks)
-    showTopTracks(topTracks)
+    const array = showTopTracks(topTracks)
     populateUI(profile)
+    console.log(array)
+    
   }
 }
 
 export default auth
+export { fetchTopTracks, getAccessToken }
 

@@ -1,8 +1,10 @@
 import './styles.scss' 
 import auth from "./APICalls"
-import TrackCardContainer from "./components/trackCardContainer"
+
+
 function App() {
    auth()
+   
     
 
   return (
@@ -22,7 +24,7 @@ function App() {
         </ul>
       </section>
       <div id="topTracks"></div>
-      <TrackCardContainer />
+      
     </div>
   )
 }
