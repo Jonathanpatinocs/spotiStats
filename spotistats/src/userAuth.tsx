@@ -1,3 +1,4 @@
+import { log } from "console";
 
 
 // --------------- Verify that request is authentic -------------------- // 
@@ -33,7 +34,7 @@ async function redirecttoAuthCodeFlow(clientId: string) {
   params.append("client_id", clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://localhost:5173/callback"); // redirect url
-  params.append("scope", "user-read-private user-read-email"); // Scopes to allows fetching the user profile data
+  params.append("scope", "user-read-private user-read-email user-top-read user-read-recently-played "); // Scopes to allows fetching the user profile data
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
   
@@ -67,6 +68,22 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
   })
   return await result.json()
 }
+ async function fetchTopTracks(token: string): Promise<any> {
+    const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50", {
+      method: "GET",
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    
+    return await result.json()
+}
+function showTopTracks(topTracks: any) {
+  const div = document.getElementById('topTracks')
+  for( let i = 0; i < topTracks.items.length; i++) {
+    let trackdiv = document.createElement('div')
+    trackdiv.innerText = `${topTracks.items[i].name} ${topTracks.items[i].artists[0].name}`
+    div?.append(trackdiv)
+  }
+}
 function populateUI(profile: any) {
   document.getElementById("displayName")!.innerText = profile.display_name;
   if (profile.images[0]) {
@@ -82,6 +99,8 @@ function populateUI(profile: any) {
   document.getElementById("url")!.setAttribute("href", profile.href);
   document.getElementById("imgUrl")!.innerText = profile.images[0]?.url ?? '(no profile image)';
 }
+
+
 async function auth() {
 
   
@@ -90,23 +109,15 @@ async function auth() {
   const code = params.get("code");
 
   if (!code) {
-    const buttonDiv = document.getElementById('addbutton')
-    const button = document.createElement('button')
-    button.innerText = 'Connect your spotify'
-    button.addEventListener('click',()=> {
       redirecttoAuthCodeFlow(clientId)
-      auth()
-    })
-    if(!buttonDiv?.firstChild) {
-      buttonDiv?.append(button)
-    } 
-    
-    
-  } else {
+    }
+     else {
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
+    const topTracks = await fetchTopTracks(accessToken)
     console.log(profile);
-    
+    console.log(topTracks)
+    showTopTracks(topTracks)
     populateUI(profile)
   }
 }

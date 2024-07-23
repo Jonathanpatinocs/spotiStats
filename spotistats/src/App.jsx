@@ -1,5 +1,4 @@
 
-
 import auth from "./userAuth"
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
           <li>Profile Image: <span id="imgUrl"></span></li>
         </ul>
       </section>
+      <div id="topTracks"></div>
     </div>
   )
 }
