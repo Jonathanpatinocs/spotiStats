@@ -1,6 +1,6 @@
-
-import auth from "./userAuth"
-
+import './styles.scss' 
+import auth from "./APICalls"
+import TrackCardContainer from "./components/trackCardContainer"
 function App() {
    auth()
     
@@ -22,6 +22,7 @@ function App() {
         </ul>
       </section>
       <div id="topTracks"></div>
+      <TrackCardContainer />
     </div>
   )
 }
