@@ -27,7 +27,7 @@ function App() {
         
       </section>
       <div id= "buttons">
-          <button id='4weeks'>4 Weeks</button>
+          <button id='4weeks' className='selected'>4 Weeks</button>
           <button id='6months'>6 Months</button>
           <button id='1year'>Year</button>
         </div>
