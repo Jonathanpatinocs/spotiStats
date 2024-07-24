@@ -1,4 +1,7 @@
-
+body {
+    background-color: #121212;
+    
+}
     .trackCard {
         img {
             max-height: 150px;
@@ -13,3 +16,24 @@
         }
     }
 
+#profile {
+    color: #b3b3b3;
+    display: flex;
+    min-width: 700px;
+    #profile-left {
+        display: flex;
+        margin-left: auto;
+    }
+    #profile-right {
+        gap: 10px;
+        font-size: 15px;
+        display: flex;
+        margin-left: auto;  
+    }
+    img {
+        height: 75px;
+        width: 75px;
+        
+    }
+    
+}
