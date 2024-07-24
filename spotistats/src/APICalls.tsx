@@ -71,7 +71,7 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
   })
   return await result.json()
 }
- async function fetchTopTracks(token: string): Promise<any> {
+ async function fetchTopTracksYear(token: string): Promise<any> {
     const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50", {
       method: "GET",
       headers: {Authorization: `Bearer ${token}`}
@@ -79,11 +79,25 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
     
     return await result.json()
 }
+async function fetchTopTracksMonths(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50", {
+    method: "GET",
+    headers: {Authorization: `Bearer ${token}`}
+  })
+  
+  return await result.json()
+}
+async function fetchTopTracksWeeks(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50", {
+    method: "GET",
+    headers: {Authorization: `Bearer ${token}`}
+  })
+  
+  return await result.json()
+}
 function showTopTracks(topTracks: any) {
   const toptracksArray: any[] = []
   
-  const tracksContainer = document.getElementById('topTracks')
-  const tracks = document.createElement('div')
   for( let i = 0; i < topTracks.items.length; i++) {
     let track = {
       title: topTracks.items[i].name,
@@ -134,13 +148,19 @@ function populateTopTracks(topTracks: any) {
 
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
-    const topTracks = await fetchTopTracks(accessToken)
+    const topTracksYear = await fetchTopTracksYear(accessToken)
+    const topTracksMonths = await fetchTopTracksMonths(accessToken)
+    const topTracksWeeks = await fetchTopTracksWeeks(accessToken)
     console.log(profile);
-    console.log(topTracks)
-    const array = showTopTracks(topTracks)
+    console.log(topTracksYear)
+    const topTracksYearList = showTopTracks(topTracksYear)
+    const topTracksMonthsList = showTopTracks(topTracksMonths)
+    const topTracksWeeksList = showTopTracks(topTracksWeeks)
     populateUI(profile)
-    populateTopTracks(array)
-    console.log(array)
+    populateTopTracks(topTracksWeeksList)
+    console.log(topTracksYearList)
+    console.log(topTracksMonthsList)
+    console.log(topTracksWeeksList)
     
      
   }
