@@ -161,8 +161,32 @@ function populateTopTracks(topTracks: any) {
     console.log(topTracksYearList)
     console.log(topTracksMonthsList)
     console.log(topTracksWeeksList)
-    
-     
+
+    const weeksButton = document.getElementById('4weeks')
+    const monthsButton = document.getElementById('6months')
+    const yearButton = document.getElementById('1year')
+    const div = document.getElementById('topTracks')
+    weeksButton?.addEventListener('click', ()=> {
+      while (div?.lastElementChild) {
+        div.removeChild(div.lastElementChild)
+      }
+      populateTopTracks(topTracksWeeksList)
+    })
+
+    monthsButton?.addEventListener('click', ()=> {
+      while (div?.lastElementChild) {
+        div.removeChild(div.lastElementChild)
+      }
+      populateTopTracks(topTracksMonthsList)
+    })
+
+    yearButton?.addEventListener('click', ()=> {
+      while (div?.lastElementChild) {
+        div.removeChild(div.lastElementChild)
+      }
+      populateTopTracks(topTracksYearList)
+    })
+
   }
 }
 
