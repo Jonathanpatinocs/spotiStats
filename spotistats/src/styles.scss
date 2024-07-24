@@ -1,12 +1,30 @@
 body {
     background-color: #121212;
     
+    
+}
+#buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    button {
+        width: 100px;
+        color: #b3b3b3;
+        background-color: #212121;
+        border: #535353 solid 1px;
+    }
+}
+#topTracksContainer {
+    width: 100%;
+   
 }
 #topTracks {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    
 
     .trackCard {
         color:#b3b3b3;
