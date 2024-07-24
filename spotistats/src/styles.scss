@@ -2,24 +2,43 @@ body {
     background-color: #121212;
     
 }
+#topTracks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
     .trackCard {
+        color:#b3b3b3;
+        width: 200px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         img {
             max-height: 150px;
             max-width: 150px;
+            
         }
         h1 {
             padding: 0;
             margin: 0;
+            align-self: flex-start;
+            
         }
         p {
             margin: 0;
+            align-self: flex-start;
         }
     }
+}  
 
 #profile {
     color: #b3b3b3;
     display: flex;
     min-width: 700px;
+    margin-bottom: 15px;
     #profile-left {
         display: flex;
         margin-left: auto;
