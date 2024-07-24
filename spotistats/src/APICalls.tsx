@@ -171,6 +171,9 @@ function populateTopTracks(topTracks: any) {
         div.removeChild(div.lastElementChild)
       }
       populateTopTracks(topTracksWeeksList)
+      weeksButton.classList.add('selected')
+      monthsButton?.classList.remove('selected')
+      yearButton?.classList.remove('selected')
     })
 
     monthsButton?.addEventListener('click', ()=> {
@@ -178,6 +181,10 @@ function populateTopTracks(topTracks: any) {
         div.removeChild(div.lastElementChild)
       }
       populateTopTracks(topTracksMonthsList)
+      monthsButton.classList.add('selected')
+      weeksButton?.classList.remove('selected')
+      yearButton?.classList.remove('selected')
+      
     })
 
     yearButton?.addEventListener('click', ()=> {
@@ -185,6 +192,9 @@ function populateTopTracks(topTracks: any) {
         div.removeChild(div.lastElementChild)
       }
       populateTopTracks(topTracksYearList)
+      yearButton.classList.add('selected')
+      monthsButton?.classList.remove('selected')
+      weeksButton?.classList.remove('selected')
     })
 
   }
