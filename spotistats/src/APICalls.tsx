@@ -1,3 +1,4 @@
+import { log } from "console";
 import React, { createElement } from "react";
 
 
@@ -71,6 +72,7 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
   })
   return await result.json()
 }
+
  async function fetchTopTracksYear(token: string): Promise<any> {
     const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50", {
       method: "GET",
@@ -79,6 +81,7 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
     
     return await result.json()
 }
+
 async function fetchTopTracksMonths(token: string): Promise<any> {
   const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50", {
     method: "GET",
@@ -108,6 +111,28 @@ function showTopTracks(topTracks: any) {
   }
   
   return (toptracksArray)
+}
+async function fetchTopArtistsYear(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50", {
+    method: "GET",
+    headers: {Authorization: `Bearer ${token}`}
+  })
+  return await result.json()
+}
+
+function showTopArtists(topArtists: any) {
+  const topartistsArray: any[] = []
+  
+  for( let i = 0; i < topArtists.items.length; i++) {
+    let artist = {
+      
+      artist: topArtists.items[i].name,
+      artwork: topArtists.items[i].images[0].url
+    }
+    topartistsArray.push(artist)
+  }
+  
+  return (topartistsArray)
 }
 
 function populateUI(profile: any) {
@@ -148,16 +173,24 @@ function populateTopTracks(topTracks: any) {
 
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
+
     const topTracksYear = await fetchTopTracksYear(accessToken)
     const topTracksMonths = await fetchTopTracksMonths(accessToken)
     const topTracksWeeks = await fetchTopTracksWeeks(accessToken)
-    console.log(profile);
-    console.log(topTracksYear)
     const topTracksYearList = showTopTracks(topTracksYear)
     const topTracksMonthsList = showTopTracks(topTracksMonths)
     const topTracksWeeksList = showTopTracks(topTracksWeeks)
+
+    const topArtistsYear = await fetchTopArtistsYear(accessToken)
+    
+    const topArtistsYearList = showTopArtists(topArtistsYear)
+    console.log(topArtistsYear)
+    console.log(topArtistsYearList)
+
+      
     populateUI(profile)
     populateTopTracks(topTracksWeeksList)
+
     console.log(topTracksYearList)
     console.log(topTracksMonthsList)
     console.log(topTracksWeeksList)
