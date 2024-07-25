@@ -119,6 +119,20 @@ async function fetchTopArtistsYear(token: string): Promise<any> {
   })
   return await result.json()
 }
+async function fetchTopArtistsMonths(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50", {
+    method: "GET",
+    headers: {Authorization: `Bearer ${token}`}
+  })
+  return await result.json()
+}
+async function fetchTopArtistsWeeks(token: string): Promise<any> {
+  const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50", {
+    method: "GET",
+    headers: {Authorization: `Bearer ${token}`}
+  })
+  return await result.json()
+}
 
 function showTopArtists(topArtists: any) {
   const topartistsArray: any[] = []
@@ -159,6 +173,19 @@ function populateTopTracks(topTracks: any) {
     div?.append(trackDiv)
   }
 }
+function populateTopArtists(topArtists: any) {
+  const div = document.getElementById('topTracks')
+  for (let i = 0; i < topArtists.length; i++) {
+    let artistDiv = document.createElement('div')
+    artistDiv.classList.add('trackCard')
+    let artistArtwork = document.createElement('img')
+    let artistTitle = document.createElement('h1')
+    artistTitle.innerText = topArtists[i].artist
+    artistArtwork.src = topArtists[i].artwork
+    artistDiv.append(artistArtwork,artistTitle)
+    div?.append(artistDiv)
+  }
+}
 
   
 
@@ -182,8 +209,12 @@ function populateTopTracks(topTracks: any) {
     const topTracksWeeksList = showTopTracks(topTracksWeeks)
 
     const topArtistsYear = await fetchTopArtistsYear(accessToken)
-    
+    const topArtistsMonths = await fetchTopArtistsMonths(accessToken)
+    const topArtistsWeeks = await fetchTopArtistsWeeks(accessToken)
     const topArtistsYearList = showTopArtists(topArtistsYear)
+    const topArtistsMonthsList = showTopArtists(topArtistsMonths)
+    const topArtistsWeeksList = showTopArtists(topArtistsWeeks)
+
     console.log(topArtistsYear)
     console.log(topArtistsYearList)
 
@@ -191,14 +222,18 @@ function populateTopTracks(topTracks: any) {
     populateUI(profile)
     populateTopTracks(topTracksWeeksList)
 
-    console.log(topTracksYearList)
-    console.log(topTracksMonthsList)
-    console.log(topTracksWeeksList)
+    
+
+    const selectTracks = document.getElementById('selectTracks')
+    const selectArtists = document.getElementById('selectArtists')
 
     const weeksButton = document.getElementById('4weeks')
     const monthsButton = document.getElementById('6months')
     const yearButton = document.getElementById('1year')
     const div = document.getElementById('topTracks')
+
+
+
     weeksButton?.addEventListener('click', ()=> {
       while (div?.lastElementChild) {
         div.removeChild(div.lastElementChild)
@@ -229,6 +264,107 @@ function populateTopTracks(topTracks: any) {
       monthsButton?.classList.remove('selected')
       weeksButton?.classList.remove('selected')
     })
+
+    
+    selectArtists?.addEventListener('click', () => {
+      selectArtists.classList.add('selectedList')
+      selectTracks?.classList.remove('selectedList')
+
+      while (div?.lastElementChild) {
+        div.removeChild(div.lastElementChild)
+      }
+      
+      populateTopArtists(topArtistsWeeksList)
+      weeksButton?.classList.add('selected')
+      monthsButton?.classList.remove('selected')
+      yearButton?.classList.remove('selected')
+
+      weeksButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopArtists(topArtistsWeeksList)
+        weeksButton.classList.add('selected')
+        monthsButton?.classList.remove('selected')
+        yearButton?.classList.remove('selected')
+      })
+  
+      monthsButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopArtists(topArtistsMonthsList)
+        monthsButton.classList.add('selected')
+        weeksButton?.classList.remove('selected')
+        yearButton?.classList.remove('selected')
+        
+      })
+  
+      yearButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopArtists(topArtistsYearList)
+        yearButton.classList.add('selected')
+        monthsButton?.classList.remove('selected')
+        weeksButton?.classList.remove('selected')
+      })
+    })
+
+    selectTracks?.addEventListener('click', () => {
+      selectTracks.classList.add('selectedList')
+      selectArtists?.classList.remove('selectedList')
+
+
+      while (div?.lastElementChild) {
+        div.removeChild(div.lastElementChild)
+      }
+
+      populateTopTracks(topTracksWeeksList)
+      weeksButton?.classList.add('selected')
+        monthsButton?.classList.remove('selected')
+        yearButton?.classList.remove('selected')
+        
+
+      weeksButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopTracks(topTracksWeeksList)
+        weeksButton.classList.add('selected')
+        monthsButton?.classList.remove('selected')
+        yearButton?.classList.remove('selected')
+      })
+  
+      monthsButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopTracks(topTracksMonthsList)
+        monthsButton.classList.add('selected')
+        weeksButton?.classList.remove('selected')
+        yearButton?.classList.remove('selected')
+        
+      })
+  
+      yearButton?.addEventListener('click', ()=> {
+        while (div?.lastElementChild) {
+          div.removeChild(div.lastElementChild)
+        }
+        populateTopTracks(topTracksYearList)
+        yearButton.classList.add('selected')
+        monthsButton?.classList.remove('selected')
+        weeksButton?.classList.remove('selected')
+      })
+
+    })
+
+    console.log(topTracksYearList)
+    console.log(topTracksMonthsList)
+    console.log(topTracksWeeksList)
+
+    
+    
 
   }
 }

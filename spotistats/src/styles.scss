@@ -64,6 +64,18 @@ body {
     #profile-left {
         display: flex;
         margin-left: auto;
+
+        h1 {
+            span {
+                opacity: 50%;
+            }
+
+            .selectedList {
+                color: #1db954;
+                opacity: 100%;
+            }
+        
+        }
     }
     #profile-right {
         gap: 10px;

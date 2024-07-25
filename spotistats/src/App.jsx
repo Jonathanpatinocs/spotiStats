@@ -17,7 +17,7 @@ function App() {
       <section id="profile">
         <div id='profile-left'>
         <img src={spotifyLogo} alt="Spotify Logo" />
-            <h1>Your Spotify Top Tracks</h1>
+            <h1>Your Spotify Top <span id='selectTracks' className='selectedList'>Tracks</span> <span id='selectArtists'>Artists</span></h1>
             
         </div>
         <div id='profile-right'>
