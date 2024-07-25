@@ -73,6 +73,7 @@ async function fetchProfile(token: string): Promise<any> { // calls the web api 
   return await result.json()
 }
 
+/*------------ API Calls for Top Tracks by TimeFrame -------------------- */
  async function fetchTopTracksYear(token: string): Promise<any> {
     const result = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50", {
       method: "GET",
@@ -98,7 +99,9 @@ async function fetchTopTracksWeeks(token: string): Promise<any> {
   
   return await result.json()
 }
-function showTopTracks(topTracks: any) {
+/* --------------------------------------------------------------------------------------- */
+
+function showTopTracks(topTracks: any) { /* Convert top tracks json file to array with track objects */
   const toptracksArray: any[] = []
   
   for( let i = 0; i < topTracks.items.length; i++) {
@@ -112,6 +115,8 @@ function showTopTracks(topTracks: any) {
   
   return (toptracksArray)
 }
+
+/*------------ API Calls for Top Artists by TimeFrame -------------------- */
 async function fetchTopArtistsYear(token: string): Promise<any> {
   const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50", {
     method: "GET",
@@ -119,6 +124,7 @@ async function fetchTopArtistsYear(token: string): Promise<any> {
   })
   return await result.json()
 }
+
 async function fetchTopArtistsMonths(token: string): Promise<any> {
   const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50", {
     method: "GET",
@@ -126,6 +132,7 @@ async function fetchTopArtistsMonths(token: string): Promise<any> {
   })
   return await result.json()
 }
+
 async function fetchTopArtistsWeeks(token: string): Promise<any> {
   const result = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50", {
     method: "GET",
@@ -133,8 +140,9 @@ async function fetchTopArtistsWeeks(token: string): Promise<any> {
   })
   return await result.json()
 }
+/* --------------------------------------------------------------------------------------- */
 
-function showTopArtists(topArtists: any) {
+function showTopArtists(topArtists: any) { /* Convert top artists json file to array with artists objects */
   const topartistsArray: any[] = []
   
   for( let i = 0; i < topArtists.items.length; i++) {
@@ -149,7 +157,7 @@ function showTopArtists(topArtists: any) {
   return (topartistsArray)
 }
 
-function populateUI(profile: any) {
+function populateUI(profile: any) { /* DOM for profile Header*/
   document.getElementById("displayName")!.innerText = profile.display_name;
   if (profile.images[0]) {
       const profileImage = new Image(200, 200);
@@ -158,7 +166,7 @@ function populateUI(profile: any) {
   }
   
 }
-function populateTopTracks(topTracks: any) {
+function populateTopTracks(topTracks: any) { /* DOM for Top Tracks*/
   const div = document.getElementById('topTracks')
   for (let i = 0; i < topTracks.length; i++) {
     let trackDiv = document.createElement('div')
@@ -173,7 +181,7 @@ function populateTopTracks(topTracks: any) {
     div?.append(trackDiv)
   }
 }
-function populateTopArtists(topArtists: any) {
+function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
   const div = document.getElementById('topTracks')
   for (let i = 0; i < topArtists.length; i++) {
     let artistDiv = document.createElement('div')
@@ -187,9 +195,14 @@ function populateTopArtists(topArtists: any) {
   }
 }
 
-  
+  function resetContainer() {  /* Removes all elements from topTracks div */
+    const div = document.getElementById('topTracks')
+    while (div?.lastElementChild) {
+      div.removeChild(div.lastElementChild)
+    }
+  }
 
-  async function auth() {
+  async function auth() {  
     const clientId = "ff095abf4d4a4fc2b49583d127c624ad"
     const params = new URLSearchParams(window.location.search)
     const code = params.get("code");
@@ -201,6 +214,7 @@ function populateTopArtists(topArtists: any) {
     const accessToken = await getAccessToken(clientId, code)
     const profile = await fetchProfile(accessToken)
 
+/*------------ Fetch Top Artists and Tracks and make them into lists (arrays) -------------------- */
     const topTracksYear = await fetchTopTracksYear(accessToken)
     const topTracksMonths = await fetchTopTracksMonths(accessToken)
     const topTracksWeeks = await fetchTopTracksWeeks(accessToken)
@@ -215,15 +229,14 @@ function populateTopArtists(topArtists: any) {
     const topArtistsMonthsList = showTopArtists(topArtistsMonths)
     const topArtistsWeeksList = showTopArtists(topArtistsWeeks)
 
+/* --------------------------------------------------------------------------------------- */
     console.log(topArtistsYear)
     console.log(topArtistsYearList)
 
       
-    populateUI(profile)
-    populateTopTracks(topTracksWeeksList)
-
+    populateUI(profile) /* adds image and user name to header
     
-
+/*------------------------- get elements from DOM   -------------------- */
     const selectTracks = document.getElementById('selectTracks')
     const selectArtists = document.getElementById('selectArtists')
 
@@ -233,11 +246,12 @@ function populateTopArtists(topArtists: any) {
     const div = document.getElementById('topTracks')
 
 
+/*------------ Inital load with Tracks and 4 Week time frame selected -------------------- */
+
+    populateTopTracks(topTracksWeeksList)
 
     weeksButton?.addEventListener('click', ()=> {
-      while (div?.lastElementChild) {
-        div.removeChild(div.lastElementChild)
-      }
+      resetContainer()
       populateTopTracks(topTracksWeeksList)
       weeksButton.classList.add('selected')
       monthsButton?.classList.remove('selected')
@@ -245,9 +259,7 @@ function populateTopArtists(topArtists: any) {
     })
 
     monthsButton?.addEventListener('click', ()=> {
-      while (div?.lastElementChild) {
-        div.removeChild(div.lastElementChild)
-      }
+      resetContainer()
       populateTopTracks(topTracksMonthsList)
       monthsButton.classList.add('selected')
       weeksButton?.classList.remove('selected')
@@ -256,23 +268,22 @@ function populateTopArtists(topArtists: any) {
     })
 
     yearButton?.addEventListener('click', ()=> {
-      while (div?.lastElementChild) {
-        div.removeChild(div.lastElementChild)
-      }
+      resetContainer()
       populateTopTracks(topTracksYearList)
       yearButton.classList.add('selected')
       monthsButton?.classList.remove('selected')
       weeksButton?.classList.remove('selected')
     })
 
-    
+
+/*------------ Functions for switching timeframes while Artists is selected -------------------- */
+
+
     selectArtists?.addEventListener('click', () => {
       selectArtists.classList.add('selectedList')
       selectTracks?.classList.remove('selectedList')
 
-      while (div?.lastElementChild) {
-        div.removeChild(div.lastElementChild)
-      }
+      resetContainer()
       
       populateTopArtists(topArtistsWeeksList)
       weeksButton?.classList.add('selected')
@@ -280,9 +291,7 @@ function populateTopArtists(topArtists: any) {
       yearButton?.classList.remove('selected')
 
       weeksButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopArtists(topArtistsWeeksList)
         weeksButton.classList.add('selected')
         monthsButton?.classList.remove('selected')
@@ -290,9 +299,7 @@ function populateTopArtists(topArtists: any) {
       })
   
       monthsButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopArtists(topArtistsMonthsList)
         monthsButton.classList.add('selected')
         weeksButton?.classList.remove('selected')
@@ -301,9 +308,7 @@ function populateTopArtists(topArtists: any) {
       })
   
       yearButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopArtists(topArtistsYearList)
         yearButton.classList.add('selected')
         monthsButton?.classList.remove('selected')
@@ -311,14 +316,14 @@ function populateTopArtists(topArtists: any) {
       })
     })
 
+    /*------------ Functions for switching timeframes while Tracks is selected -------------------- */
+
     selectTracks?.addEventListener('click', () => {
       selectTracks.classList.add('selectedList')
       selectArtists?.classList.remove('selectedList')
 
 
-      while (div?.lastElementChild) {
-        div.removeChild(div.lastElementChild)
-      }
+      resetContainer()
 
       populateTopTracks(topTracksWeeksList)
       weeksButton?.classList.add('selected')
@@ -327,9 +332,7 @@ function populateTopArtists(topArtists: any) {
         
 
       weeksButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopTracks(topTracksWeeksList)
         weeksButton.classList.add('selected')
         monthsButton?.classList.remove('selected')
@@ -337,9 +340,7 @@ function populateTopArtists(topArtists: any) {
       })
   
       monthsButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopTracks(topTracksMonthsList)
         monthsButton.classList.add('selected')
         weeksButton?.classList.remove('selected')
@@ -348,9 +349,7 @@ function populateTopArtists(topArtists: any) {
       })
   
       yearButton?.addEventListener('click', ()=> {
-        while (div?.lastElementChild) {
-          div.removeChild(div.lastElementChild)
-        }
+        resetContainer()
         populateTopTracks(topTracksYearList)
         yearButton.classList.add('selected')
         monthsButton?.classList.remove('selected')
