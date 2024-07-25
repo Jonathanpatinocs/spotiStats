@@ -59,7 +59,7 @@ body {
 #profile {
     color: #b3b3b3;
     display: flex;
-    min-width: 700px;
+    min-width: 800px;
     margin-bottom: 15px;
     #profile-left {
         display: flex;
@@ -90,7 +90,7 @@ body {
     }
 }
 /*-------------- Mobile Styling ----------------- */
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
     #profile {
         min-width: 100vw;
         display: flex;
