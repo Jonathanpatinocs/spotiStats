@@ -26,10 +26,21 @@ To Visit App:
 
 # Visuals
 
-![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/ed5eecebd48da744ad284e62c7b1f7e6398cd0cd/spotistats/src/assets/spotifyimgs/spotimg1.png "Auth View") <br/>
+## Authorization View
+
+![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/ed5eecebd48da744ad284e62c7b1f7e6398cd0cd/spotistats/src/assets/spotifyimgs/spotimg1.png "Auth View") <br/> <br/>
+
+## Top Tracks View
 
 ![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/bfa26c8463c37960a059ba55d6885f336d9b4632/spotistats/src/assets/spotifyimgs/spotimg3.png "Top Tracks View") <br/>
+<br/>
+
+## Top Artists View
 
 ![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/bfa26c8463c37960a059ba55d6885f336d9b4632/spotistats/src/assets/spotifyimgs/spotimg4.png "Top Artists View") <br/>
+<br/>
+<br/>
 
-![alt text](![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/c43f7ff6a4098eb85b91a1e4e52714bb5d681592/spotistats/src/assets/spotifyimgs/spotimg2.png "Auth View") <br/>"Mobile View") <br/>
+## Mobile View
+
+![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/c43f7ff6a4098eb85b91a1e4e52714bb5d681592/spotistats/src/assets/spotifyimgs/spotimg2.png "Mobile View") <br/>
