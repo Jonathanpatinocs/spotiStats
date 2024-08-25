@@ -26,4 +26,4 @@ To Visit App:
 
 # Visuals
 
-![alt text](https://github.com/jonathanpatinocs/spotistats/spotistats/src/assets/spotifyimgs/spotimg1.png "Auth View")
+![alt text](https://github.com/Jonathanpatinocs/spotiStats/spotistats/src/assets/spotifyimgs/spotimg1.png "Auth View")
