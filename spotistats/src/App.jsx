@@ -10,8 +10,6 @@ function App() {
   
    auth()
    
-   
-
   return (
     <div>
       <section id="profile">
