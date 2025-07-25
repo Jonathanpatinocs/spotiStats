@@ -56,12 +56,12 @@ body {
     }
 }  
 
-#profile {
+#header {
     color: #b3b3b3;
     display: flex;
     min-width: 800px;
     margin-bottom: 15px;
-    #profile-left {
+    #header-left {
         display: flex;
         margin-left: auto;
 
@@ -77,7 +77,7 @@ body {
         
         }
     }
-    #profile-right {
+    #header-right {
         gap: 10px;
         font-size: 15px;
         display: flex;
@@ -92,19 +92,19 @@ body {
 }
 /*-------------- Mobile Styling ----------------- */
 @media only screen and (max-width: 800px) {
-    #profile {
+    #header {
         min-width: 100vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         
-        #profile-left {
+        #header-left {
             display: flex;
             justify-content: center;
             margin-left: 0;
             
         }
-        #profile-right {
+        #header-right {
             gap: 10px;
             justify-content: center;
             font-size: 15px;

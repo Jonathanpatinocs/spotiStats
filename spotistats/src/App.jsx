@@ -12,13 +12,13 @@ function App() {
    
   return (
     <div>
-      <section id="profile">
-        <div id='profile-left'>
+      <section id="header">
+        <div id='header-left'>
           <img src={spotifyLogo} alt="Spotify Logo" />
-          <h1>Your Spotify Top <span id='selectTracks' className='selectedList'>Tracks</span> <span id='selectArtists'>Artists</span></h1>
+          <h1>Your Spotify Top <span id='selectTracks' className='selectedList'>Tracks</span> <span id='selectArtists'>Artists</span> <span id ='selectCharts'>Charts</span></h1>
             
         </div>
-        <div id='profile-right'>
+        <div id='header-right'>
           <h2>Logged in as <span id="displayName"></span></h2>
           <span id="avatar"></span>
         </div>

@@ -239,6 +239,7 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
 /*------------------------- get elements from DOM   -------------------- */
     const selectTracks = document.getElementById('selectTracks')
     const selectArtists = document.getElementById('selectArtists')
+    const selectCharts = document.getElementById('selectCharts')
 
     const weeksButton = document.getElementById('4weeks')
     const monthsButton = document.getElementById('6months')
@@ -282,7 +283,7 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
     selectArtists?.addEventListener('click', () => {
       selectArtists.classList.add('selectedList')
       selectTracks?.classList.remove('selectedList')
-
+      selectCharts?.classList.remove('selectedList')
       resetContainer()
       
       populateTopArtists(topArtistsWeeksList)
@@ -321,7 +322,7 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
     selectTracks?.addEventListener('click', () => {
       selectTracks.classList.add('selectedList')
       selectArtists?.classList.remove('selectedList')
-
+      selectCharts?.classList.remove('selectedList')
 
       resetContainer()
 
@@ -357,6 +358,12 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
       })
 
     })
+    selectCharts?.addEventListener('click',()=>{
+      selectTracks?.classList.remove('selectedList')
+      selectArtists?.classList.remove('selectedList')
+      selectCharts?.classList.add('selectedList')
+      resetContainer();
+    });
 
     console.log(topTracksYearList)
     console.log(topTracksMonthsList)
