@@ -194,6 +194,12 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
     div?.append(artistDiv)
   }
 }
+function populateCharts(charts: any) {
+  const div = document.getElementById('chartsDiv');
+  const div1 = document.createElement('div');
+  div1.textContent = " hello";
+  
+}
 
   function resetContainer() {  /* Removes all elements from topTracks div */
     const div = document.getElementById('topTracks')
@@ -363,6 +369,8 @@ function populateTopArtists(topArtists: any) {  /* DOM for Top Artists*/
       selectArtists?.classList.remove('selectedList')
       selectCharts?.classList.add('selectedList')
       resetContainer();
+
+      populateCharts(1);
     });
 
     console.log(topTracksYearList)

@@ -3,7 +3,11 @@ import auth from "./APICalls"
 import spotifyLogo from './assets/spotify-logo.webp'
 
 
-
+function topStreams() {
+  return (
+  <div>rh</div>
+);
+}
 
 
 function App() {
@@ -33,8 +37,10 @@ function App() {
         <div id="topTracks"></div>
         
       </div>
-      
-      
+      <div id="chartsDiv">
+        <topStreams></topStreams>
+      </div>
+    
       
     </div>
   )
