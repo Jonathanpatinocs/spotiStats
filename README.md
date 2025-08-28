@@ -40,4 +40,4 @@ To Visit App:
 
 ## Mobile View
 
-![alt text](https://github.com/Jonathanpatinocs/spotiStats/blob/c43f7ff6a4098eb85b91a1e4e52714bb5d681592/spotistats/src/assets/spotifyimgs/spotimg2.png "Mobile View") <br/>
+
